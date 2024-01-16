@@ -17,6 +17,7 @@ router.post("/addTask", async(req,res) => {
         await list.save().then(() => res.status(200).json({list}));
         existingUser.list.push(list);
         existingUser.save();
+        console.log("Task added successfully by existing user!");
     }
     
   } catch (error) {
@@ -55,9 +56,9 @@ router.delete("/deleteTask/:id", async(req,res) => {
       const existingUser = await User.findOne({email});
       console.log(existingUser);
       if(existingUser)
-      {
+      { 
           await List.findByIdAndDelete(req.params.id).then(() => res.status(200).json({message: "Task Deleted!"}));
-      }
+      } 
       
     } catch (error) {
       console.log(error);

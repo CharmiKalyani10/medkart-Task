@@ -27,8 +27,9 @@ router.post("/register", async(req,res) => {
 router.post("/signin", async(req,res) => {
     try{
         const user = await User.findOne({email: req.body.email});
-        console.log(user);
-        if(!user)
+        console.log("user:" , user);
+
+        if(!user) 
         {
             res.status(400).json({message: "Please Sign Up first!"});
         }

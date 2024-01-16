@@ -70,7 +70,7 @@ const Todo = () => {
     if (id) {
       const fetch = async () => {
         await axios
-          .get(`http://localhost:1000/api/v2/getTasks/${id}`)
+          .get(`http://localhost:1000/api/v2/getTask/${id}`)
           .then((response) => {
             setArray(response.data.list);
           });
