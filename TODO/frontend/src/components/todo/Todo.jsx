@@ -5,6 +5,8 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Update from "./Update";
 import axios from "axios";
+
+
 let id = sessionStorage.getItem("id");
 let toUpdateArray = [];
 const Todo = () => {
@@ -22,19 +24,23 @@ const Todo = () => {
     setInputs({ ...Inputs, [name]: value });
   };
   const submit = async () => {
+    console.log("inputs: ", Inputs);
     if (Inputs.title === "" || Inputs.body === "") {
       toast.error("Title Or Body Can't Be Empty");
-    } else {
+    } else { 
+      console.log("id: ",id);
       if (id) {
-        await axios
-          .post(`http://localhost:1000/api/v2/addTask`, {
+        console.log("Helllo");
+        let resp = await axios
+          .post(`http://127.0.0.1:8000/api/v2/addTask`, {
             title: Inputs.title,
             body: Inputs.body,
             id: id,
           })
-          .then((response) => {
-            console.log(response);
-          });
+          // .then((response) => {
+          //   console.log(response);
+          // });
+          console.log("Resp: ", resp);
         setInputs({ title: "", body: "" });
         toast.success("Your Task Is Added");
       } else {
@@ -49,7 +55,7 @@ const Todo = () => {
   const del = async (Cardid) => {
     if (id) {
       await axios
-        .delete(`http://localhost:1000/api/v2/deleteTask/${Cardid}`, {
+        .delete(`http://localhost:8000/api/v2/deleteTask/${Cardid}`, {
           data: { id: id },
         })
         .then(() => {
@@ -66,18 +72,19 @@ const Todo = () => {
   const update = (value) => {
     toUpdateArray = Array[value];
   };
+
   useEffect(() => {
     if (id) {
       const fetch = async () => {
         await axios
-          .get(`http://localhost:1000/api/v2/getTask/${id}`)
+          .get(`http://localhost:8000/api/v2/getTask/${id}`)
           .then((response) => {
             setArray(response.data.list);
           });
       };
       fetch();
     }
-  }, [submit]);
+  }, []);
 
   return (
     <>

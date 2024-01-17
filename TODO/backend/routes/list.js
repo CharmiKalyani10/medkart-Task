@@ -6,10 +6,10 @@ const List = require("../models/list");
 // add task
 router.post("/addTask", async(req,res) => {
   try {
-    const {title, body, email} = req.body;
-    console.log(title);
-
-    const existingUser = await User.findOne({email});
+    const {title, body, id} = req.body;
+    console.log("title: " ,title);
+    // console.log("email: ", email);
+    const existingUser = await User.findById(id);
     console.log(existingUser);
     if(existingUser)
     {
@@ -31,7 +31,7 @@ router.post("/addTask", async(req,res) => {
 router.put("/updateTask/:id", async(req,res) => {
     try {
       const {title, body, email} = req.body;
-      console.log(title);
+      console.log("title: ", title);
   
       const existingUser = await User.findOne({email});
       console.log(existingUser);

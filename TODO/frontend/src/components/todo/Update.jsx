@@ -19,7 +19,7 @@ const Update = ({ display, update }) => {
   };
   const submit = async () => {
     await axios
-      .put(`http://localhost:1000/api/v2/updateTask/${update._id}`, Inputs)
+      .put(`http://localhost:8000/api/v2/updateTask/${update._id}`, Inputs)
       .then((response) => {
         toast.success(response.data.message);
       });

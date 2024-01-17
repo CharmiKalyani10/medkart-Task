@@ -4,7 +4,6 @@ import HeadingComp from "./HeadingComp";
 import axios from "axios";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-
 const Signup = () => {
   const history = useNavigate();
   const [Inputs, setInputs] = useState({
@@ -17,12 +16,10 @@ const Signup = () => {
     setInputs({ ...Inputs, [name]: value });
   };
   const submit = async (e) => {
-    console.log("sfsfsfsf")
     e.preventDefault();
     await axios
-      .post(`http://localhost:1000/api/v1/register`, Inputs)
+      .post(`http://localhost:8000/api/v1/register`, Inputs)
       .then((response) => {
-        console.log("response: " , response);
         if (response.data.message === "User Already Exists") {
           alert(response.data.message);
         } else {

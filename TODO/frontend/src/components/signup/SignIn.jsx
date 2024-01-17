@@ -9,7 +9,7 @@ import { authActions } from "../../store";
 
 const SignIn = () => {
   const dispatch = useDispatch();
-  const navigate = useNavigate();
+  const history = useNavigate();
   const [Inputs, setInputs] = useState({
     email: "",
     password: "",
@@ -22,19 +22,20 @@ const SignIn = () => {
     e.preventDefault();
     try {
       const response = await axios.post(
-        `http://localhost:1000/api/v1/signin`,
+        `http://localhost:8000/api/v1/signin`,
         Inputs
       );
-      console.log("response.data",response.data);
+      console.log(response.data);
       if (response.data) {
         sessionStorage.setItem("id", response.data.user._id);
         dispatch(authActions.login());
-        window.location.replace("/todo")
+        history("/todo");
       } else {
-        
+        // Handle the case where the response does not contain the expected data
         console.error("Response data or _id not found in the response.");
       }
-    } catch(error) {   
+    } catch (error) {
+      // Handle any errors that occurred during the HTTP request
       console.error("An error occurred:", error);
     }
   };
